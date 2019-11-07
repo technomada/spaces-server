@@ -1,4 +1,4 @@
-# spaces-server
+# spaces server
 Spaces synchronized messages server for node js.
 
 ```sh
