@@ -155,17 +155,21 @@ const 	Spaces = // 2018.08.02 <| 2018.06.24.1700
 
 		var tFrom = performance.now() //upg: do security in all (so can't guess by timing)
 
+		let done = false // upg: spaces cancel wait.
 		var t = setTimeout(n=>{ // this ok?
+			done = true
 			res.json({list:false,since,series:spaces.series})
 			},20000) // upg timer?
 
 		// upg: set a timer and cancel wait after n-seconds?
 		spaces.wait(xid,since).then(v=>{
 			//var dt = performance.now()-tFrom
-			res.json(v)
+			if(!done)
+				res.json(v)
 			clearTimeout(t)
 			}).catch(e=>{
-				res.json(false)
+				if(!done)
+					res.json(false)
 				clearTimeout(t)
 				})
 
